@@ -102,7 +102,7 @@ jobs:
           sudo apt-get update && sudo apt-get install setools lzip wine winetricks patchelf
           wget -qO- "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/archive/$GITHUB_REF.tar.gz" | sudo tar --wildcards -zxvf- -C ~ --strip-component=2 '*/wine/*' '*/linker/*'
           winetricks msxml6
-          echo "163.172.251.201 store.rg-adguard.net" | sudo tee -a /etc/hosts
+          echo "163.172.251.201 uup.rg-adguard.net" | sudo tee -a /etc/hosts
       - name: Download WSA
         shell: python
         run: |
@@ -117,7 +117,7 @@ jobs:
           release_type_map = {"retail": "Retail", "release preview": "RP", "insider slow": "WIS", "insider fast": "WIF"}
           release_type = release_type_map["${{ github.event.inputs.release_type }}"] if "${{ github.event.inputs.release_type }}" != "" else "Retail"
 
-          res = requests.post("https://store.rg-adguard.net/api/GetFiles", f"type=CategoryId&url=858014f3-3934-4abe-8078-4aa193e74ca8&ring={release_type}&lang=en-US", headers={
+          res = requests.post("https://uup.rg-adguard.net/api/GetFiles", f"type=CategoryId&url=858014f3-3934-4abe-8078-4aa193e74ca8&ring={release_type}&lang=en-US", headers={
               "content-type": "application/x-www-form-urlencoded"
           }, verify=False) # source site has expired cert
           html = BeautifulSoup(res.content, "lxml")
